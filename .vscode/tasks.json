@@ -1,0 +1,84 @@
+{
+    "tasks": [
+        {
+            "label": "build",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "compile",
+                "linking",
+                "copyres",
+                "start"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            }
+        },
+        {
+            "label": "copyres",
+            "type": "shell",
+            "windows":{
+                "command": "cp",
+                "args": [
+                    "-r",
+                    "res",
+                    "bin/debug",
+                ],
+            },
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "cppbuild",
+            "label": "compile",
+            "command": "g++",
+            "args": [
+                "-fdiagnostics-color=always",
+                "-g",
+                ".\\src\\*.cpp",
+                "-c",
+                "-Wall",
+                "-m64",
+                "-Iinclude",
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "cppbuild",
+            "label": "linking",
+            "command": "g++",
+            "args": [
+                "*.o",
+                "-o ",
+                ".\\bin\\debug\\main.exe",
+                "-Wall",
+                "-Llib",
+                "-lmingw32",
+                "-lSDL2main",
+                "-lSDL2",
+                "-lSDL2_image"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "cppbuild",
+            "label": "start",
+            "command": "start",
+            "args": [
+                ".\\bin\\debug\\main.exe"
+            ],
+            "options": {
+                "cwd": "${workspaceFolder}"
+            }
+        }
+    ],
+    "version": "2.0.0"
+}

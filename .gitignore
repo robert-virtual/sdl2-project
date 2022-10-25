@@ -1,0 +1,6 @@
+bin
+lib
+*.o
+*.exe
+include/SDL2
+

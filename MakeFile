@@ -1,0 +1,5 @@
+# all:
+# 	g++ -c src/*.cpp -I include && g++ *.o -o bin/debug/main.exe -L lib -lmingw32 -lSDL2main -lSDL2 -lSDL2_image && start bin/debug/main.exe
+
+all:
+	g++ -Iinclude -Llib -o bin/debug/main src/*.cpp -lmingw32 -lSDL2main -lSDL2 -lSDL2_image
