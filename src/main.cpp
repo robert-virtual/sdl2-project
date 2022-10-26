@@ -1,40 +1,32 @@
 #include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
 #include <iostream>
+#include "headers/Utils.h"
+#include "headers/RenderWindow.h"
 
-int main(int argc, char *argv[])
+int main(int argc, char *args[])
 {
-    SDL_Init(SDL_INIT_EVERYTHING);
-    SDL_Window* window = SDL_CreateWindow("Hola mundo",SDL_WINDOWPOS_CENTERED,SDL_WINDOWPOS_CENTERED,1080,720,0);
-    SDL_Renderer* renderer = SDL_CreateRenderer(window,-1,0);
+    if (SDL_Init(SDL_INIT_VIDEO) != 0)
+        return sdlErr("SDL init");
+    if (!IMG_Init(IMG_INIT_PNG))
+        return sdlErr("IMG init");
+    RenderWindow window("Game v1.0.0", 1080, 720);
     bool isRunning = true;
     SDL_Event event;
     while (isRunning)
     {
         while (SDL_PollEvent(&event))
         {
-           switch (event.type)
-           {
-           case SDL_QUIT:
-            isRunning = false;
-            break;
-           
-           case SDL_KEYDOWN:
-            if (event.key.keysym.sym == SDLK_ESCAPE)
+            switch (event.type)
             {
+            case SDL_QUIT:
                 isRunning = false;
+                break;
             }
-            
-            break;
-           } 
         }
-        SDL_RenderClear(renderer);
-        SDL_SetRenderDrawColor(renderer,255,255,255,255);
-        SDL_RenderPresent(renderer);
     }
-    SDL_DestroyWindow(window);
-    SDL_DestroyRenderer(renderer);
+    window.cleanUp();
     SDL_Quit();
 
     return 0;
 }
-
