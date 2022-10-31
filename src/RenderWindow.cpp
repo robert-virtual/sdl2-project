@@ -9,7 +9,8 @@ RenderWindow::RenderWindow(const char *title, int width, int height) : window(NU
         SDL_WINDOWPOS_CENTERED,
         width,
         height,
-        SDL_WINDOW_RESIZABLE);
+        SDL_WINDOW_RESIZABLE
+    );
     if (window == NULL)
     {
        sdlErr("Create window");
@@ -40,10 +41,35 @@ SDL_Texture* RenderWindow::loadTexture(const char* filePath){
     return texture;
 }
 
+void RenderWindow::clear(){
+    SDL_RenderClear(renderer);
+}
+
+void RenderWindow::render(Entity& entity){
+
+    SDL_RenderCopy(renderer,entity.getTexture(),NULL,entity.getCurrentFrame());
+}
+void RenderWindow::render(SDL_Texture* texture){
+
+    SDL_Rect src;
+    src.h = 32; 
+    src.w = 32; 
+    src.x = 0;
+    src.y = 0;
+    SDL_Rect dst;
+    dst.h = 32*2; 
+    dst.w = 32*2; 
+    dst.x = 400;
+    dst.y = 200;
+    SDL_RenderCopy(renderer,texture,&src,&dst);
+}
+void RenderWindow::display(){
+    SDL_RenderPresent(renderer);
+}
 
 void RenderWindow::cleanUp(){
-    SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
+    SDL_DestroyWindow(window);
 }
 
 
