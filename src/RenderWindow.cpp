@@ -9,7 +9,7 @@ RenderWindow::RenderWindow(const char *title, int width, int height) : window(NU
         SDL_WINDOWPOS_CENTERED,
         width,
         height,
-        SDL_WINDOW_RESIZABLE
+       SDL_WINDOW_RESIZABLE 
     );
     if (window == NULL)
     {
@@ -72,6 +72,14 @@ void RenderWindow::cleanUp(){
     SDL_DestroyWindow(window);
 }
 
+int RenderWindow::height(){
+     SDL_GetWindowSize(window,&w,&h);
+     return h;
+}
+int RenderWindow::width(){
+     SDL_GetWindowSize(window,&w,&h);
+     return w;
+}
 
 
 

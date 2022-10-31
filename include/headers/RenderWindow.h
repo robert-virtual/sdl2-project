@@ -7,6 +7,7 @@ class RenderWindow
 {
 private:
     SDL_Window* window;
+    int h,w;
     SDL_Renderer* renderer;
 public:
     RenderWindow(const char* title,int width,int height);
@@ -16,6 +17,8 @@ public:
     void render(SDL_Texture *texture);
     void render(Entity& entity);
     void display();
+    int height();
+    int width();
 };
 
 
